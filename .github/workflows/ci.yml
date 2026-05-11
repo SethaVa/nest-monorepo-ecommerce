@@ -95,7 +95,6 @@ jobs:
 
     strategy:
       fail-fast: false
-
       matrix:
         service:
           - api-gateway
@@ -107,9 +106,7 @@ jobs:
           - shipping-service
           - notification-service
 
-    if: |
-      needs.changes.outputs[matrix.service] == 'true' ||
-      needs.changes.outputs.libs == 'true'
+    if: always()
 
     steps:
       - uses: actions/checkout@v4
@@ -127,11 +124,8 @@ jobs:
         with:
           context: .
           file: apps/${{ matrix.service }}/Dockerfile
-
           push: true
-
           build-args: |
             SERVICE=${{ matrix.service }}
-
           tags: |
             ${{ env.IMAGE_PREFIX }}/${{ matrix.service }}:latest
