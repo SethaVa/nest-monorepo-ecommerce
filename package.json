@@ -16,10 +16,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/ecommerce-monorepo/test/jest-e2e.json",
-    "lint":       "eslint \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "lint": "eslint \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "type-check": "tsc --noEmit",
-    "test":       "jest",
-    "test:ci":    "jest --ci --coverage"
+    "test": "jest",
+    "test:ci": "jest --ci --coverage",
+    "prepare": "husky"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^9.4.0",
@@ -61,13 +62,15 @@
     "@types/node": "^22.10.7",
     "@types/passport-jwt": "^4.0.1",
     "@types/pg": "^8.20.0",
-    "@types/supertest": "^6.0.2",
+    "@types/supertest": "^6.0.3",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
     "jest": "^30.0.0",
-    "prettier": "^3.4.2",
+    "lint-staged": "^17.0.4",
+    "prettier": "^3.8.3",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
@@ -97,10 +100,20 @@
       "<rootDir>/apps/",
       "<rootDir>/libs/"
     ],
+    "testMatch": [
+      "**/*.spec.ts",
+      "**/*.e2e-spec.ts"
+    ],
     "moduleNameMapper": {
       "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
       "^@app/events(|/.*)$": "<rootDir>/libs/events/src/$1"
     }
+  },
+  "lint-staged": {
+    "*.{ts,js,json,md}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }

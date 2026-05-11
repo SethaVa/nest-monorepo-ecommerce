@@ -27,7 +27,7 @@ ENV SERVICE_NAME=${SERVICE}
  
 LABEL org.opencontainers.image.created="${BUILD_DATE}"
 LABEL org.opencontainers.image.revision="${GIT_SHA}"
-LABEL org.opencontainers.image.source="https://github.com/SethaVa/nest-monorepo-ecommerce"
+LABEL org.opencontainers.image.source="https://github.com/sethava/nest-monorepo-ecommerce"
  
 # Copy only what's needed
 COPY --from=deps  /app/node_modules        ./node_modules
